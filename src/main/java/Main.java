@@ -15,5 +15,18 @@ public class Main {
             System.out.println(product.getId() + " / " + product.getName());
         }
 
+        Product product = dao.findByName("kefir");
+        if (product != null)
+            System.out.println(product.getName());
+        else
+            System.out.println(" no such product found");
+
+        Product majonez = new Product(3, "majonez" );
+        majonez.setCountry("germany");
+        majonez.setUnitCost(234);
+        dao.insert(majonez);
+        majonez = dao.findByName("majonez");
+        System.out.println("product found: " + majonez.getName());
+
     }
 }
