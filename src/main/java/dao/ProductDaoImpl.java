@@ -18,6 +18,7 @@ public class ProductDaoImpl implements ProductDao {
 
     private static final String FIND_ALL = "SELECT * FROM warehouse.\"Products\"";
     private static final String FIND_BY_NAME = "SELECT * FROM warehouse.\"Products\" WHERE name=?";
+    private static final String INSERT_NEW = "INSERT INTO warehouse.\"Products\" (id,name) VALUES (?,?)";
 
     private List<Product> getProductsFromResultSet(ResultSet resultSet) {
         List<Product> result = new ArrayList<Product>();
@@ -84,7 +85,28 @@ public class ProductDaoImpl implements ProductDao {
 
     }
 
+    private void assignDataFromProduct(Product product, PreparedStatement statement){
+        try {
+            statement.setInt(1, product.getId());
+            statement.setString(2, product.getName());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void insert(Product product) {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement(INSERT_NEW);
+            assignDataFromProduct(product, statement);
+            //statement.setInt(1, product.getId());
+            //statement.setString(2, product.getName());
+            statement.executeUpdate();
+            statement.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
 
     }
 }
