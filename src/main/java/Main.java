@@ -1,5 +1,6 @@
 import dao.ProductDao;
 import dao.ProductDaoImpl;
+import dao.ProductSearchDao;
 import domain.Product;
 
 import java.util.List;
@@ -8,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("hello");
 
-        ProductDao dao = new ProductDaoImpl();
+        ProductSearchDao dao = new ProductDaoImpl();
         List<Product> products = dao.findAll();
 
         for (Product product : products) {
@@ -24,7 +25,7 @@ public class Main {
         Product majonez = new Product(3, "majonez" );
         majonez.setCountry("germany");
         majonez.setUnitCost(234);
-        dao.insert(majonez);
+        ((ProductDao)dao).insert(majonez);
         majonez = dao.findByName("majonez");
         System.out.println("product found: " + majonez.getName());
 

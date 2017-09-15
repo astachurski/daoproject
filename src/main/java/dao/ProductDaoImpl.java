@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDaoImpl implements ProductDao {
+public class ProductDaoImpl implements ProductDao, ProductSearchDao {
 
     private final Connection connection = ConnectionFactory.getConnection(
             DBSettings.DB_CONNECTION,
